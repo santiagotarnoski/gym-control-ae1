@@ -7,7 +7,7 @@ Frontend estático para consultar y seleccionar visualmente planes de un gimnasi
 - HTML5
 - CSS3
 
-No utiliza JavaScript, backend, base de datos, API REST, frameworks ni librerías externas.
+
 
 ## Páginas
 
