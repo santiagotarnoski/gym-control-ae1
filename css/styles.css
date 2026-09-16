@@ -981,6 +981,74 @@ tbody tr:hover {
   margin: 0;
 }
 
+.quantity-layout {
+  display: grid;
+  grid-template-columns: minmax(12rem, 1fr) 1.4fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.field-hint {
+  color: var(--color-gray-500);
+  font-size: 0.8rem;
+}
+
+.subtotal-panel {
+  padding: 1.1rem 1.25rem;
+  color: var(--color-white);
+  background: var(--color-navy-900);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.subtotal-title {
+  margin-bottom: 0.75rem;
+  color: var(--color-teal-500);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.subtotal-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 0.4rem;
+  color: #aebdca;
+  font-size: 0.9rem;
+}
+
+.subtotal-row strong {
+  color: var(--color-white);
+  text-align: right;
+}
+
+.subtotal-total {
+  margin-top: 0.4rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.subtotal-total span {
+  color: var(--color-white);
+  font-weight: 800;
+}
+
+.subtotal-total strong {
+  color: var(--color-teal-500);
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+.subtotal-status {
+  margin: 0.8rem 0 0;
+  color: #aebdca;
+  font-size: 0.8rem;
+}
+
 .site-footer {
   padding-block: 1.5rem;
   color: #aebdca;
@@ -1134,6 +1202,7 @@ tbody tr:hover {
   .plans-grid,
   .form-grid,
   .choice-grid-plans,
+  .quantity-layout,
   .product-data {
     grid-template-columns: 1fr;
   }
