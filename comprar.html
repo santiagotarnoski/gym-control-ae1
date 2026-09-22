@@ -158,6 +158,19 @@
             </div>
           </fieldset>
 
+          <fieldset>
+            <legend><span>05</span> Código de descuento</legend>
+            <p class="fieldset-help">Ingresá tu código para comprobar si está vigente.</p>
+            <div class="cupon-layout">
+              <div class="form-group">
+                <label for="codigo-cupon">Código de cupón</label>
+                <input type="text" id="codigo-cupon" name="codigo_cupon" placeholder="Ej.: UCP10" autocomplete="off" aria-describedby="mensaje-cupon">
+              </div>
+              <button class="button button-outline" type="button" id="validar-cupon">Validar cupón</button>
+            </div>
+            <p id="mensaje-cupon" class="mensaje-cupon" role="status" aria-live="polite"></p>
+          </fieldset>
+
           <div class="form-notice">
             <span aria-hidden="true">i</span>
             <p>La información no se guarda ni se procesa. La pantalla representa visualmente una futura selección de membresía.</p>
@@ -179,5 +192,6 @@
     </div>
   </footer>
   <script src="js/subtotal.js" defer></script>
+  <script src="js/cupon.js" defer></script>
 </body>
 </html>

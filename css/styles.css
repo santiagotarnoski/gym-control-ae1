@@ -1049,6 +1049,34 @@ tbody tr:hover {
   font-size: 0.8rem;
 }
 
+.cupon-layout {
+  display: flex;
+  align-items: end;
+  gap: 1rem;
+}
+
+.cupon-layout .form-group {
+  flex: 1;
+}
+
+.mensaje-cupon {
+  margin: 0.75rem 0 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.mensaje-cupon:empty {
+  display: none;
+}
+
+.mensaje-error {
+  color: #a52631;
+}
+
+.mensaje-exito {
+  color: #06745f;
+}
+
 .site-footer {
   padding-block: 1.5rem;
   color: #aebdca;
@@ -1144,6 +1172,11 @@ tbody tr:hover {
 
   .choice-grid-three {
     grid-template-columns: 1fr;
+  }
+
+  .cupon-layout {
+    align-items: stretch;
+    flex-direction: column;
   }
 }
 

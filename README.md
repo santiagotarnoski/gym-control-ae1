@@ -6,6 +6,7 @@ Frontend estático para consultar y seleccionar visualmente planes de un gimnasi
 
 - HTML5
 - CSS3
+- JavaScript
 
 
 
@@ -16,6 +17,7 @@ Frontend estático para consultar y seleccionar visualmente planes de un gimnasi
 - `listado_box.html`: listado de planes en cards.
 - `producto.html`: detalle del Plan Mensual.
 - `comprar.html`: formulario visual para seleccionar un plan.
+- `js/cupon.js`: valida el código de descuento `UCP10` en la pantalla de compra.
 
 ## Ejecución
 
