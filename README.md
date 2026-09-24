@@ -17,6 +17,7 @@ Frontend estático para consultar y seleccionar visualmente planes de un gimnasi
 - `listado_box.html`: listado de planes en cards.
 - `producto.html`: detalle del Plan Mensual.
 - `comprar.html`: formulario visual para seleccionar un plan.
+- `js/subtotal.js`: calcula en pantalla el subtotal segun la cantidad elegida.
 - `js/cupon.js`: valida el código de descuento `UCP10` en la pantalla de compra.
 
 ## Ejecución
@@ -26,6 +27,8 @@ Abrir `index.html` directamente en un navegador. Todos los enlaces y recursos ut
 ## Documentación
 
 El análisis y diseño de la aplicación se encuentra en [`docs/Gym_Control_AE1_Analisis_y_Diseno.pdf`](docs/Gym_Control_AE1_Analisis_y_Diseno.pdf).
+
+Las capturas de las validaciones de la pantalla de compra estan en [`docs/capturas/`](docs/capturas).
 
 ## Integrantes
 
