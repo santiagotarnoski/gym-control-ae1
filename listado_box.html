@@ -37,52 +37,31 @@
       </div>
     </section>
 
-    <section class="section" aria-label="Planes disponibles">
-      <div class="container plans-grid">
-        <article class="plan-card">
-          <div class="plan-card-head">
-            <span class="plan-tag">Flexible</span>
-            <h2>Plan Mensual</h2>
-            <p class="plan-duration">1 mes</p>
+    <section class="section" aria-labelledby="titulo-catalogo">
+      <div class="container">
+        <h2 id="titulo-catalogo">Buscá el plan que se adapte a vos</h2>
+        <div class="catalog-toolbar">
+          <div class="form-group">
+            <label for="buscar-plan">Buscar por nombre, descripción o categoría</label>
+            <input type="search" id="buscar-plan" placeholder="Ej.: mensual, progreso o renovación" autocomplete="off" aria-controls="catalogo-planes" disabled>
           </div>
-          <p class="plan-price"><strong>$ 25.000</strong><span> / total</span></p>
-          <p class="plan-description">Acceso completo al gimnasio con renovación mes a mes.</p>
-          <a class="button button-outline button-full" href="producto.html">Ver detalle</a>
-        </article>
-
-        <article class="plan-card">
-          <div class="plan-card-head">
-            <span class="plan-tag">Constancia</span>
-            <h2>Plan Trimestral</h2>
-            <p class="plan-duration">3 meses</p>
+          <div class="form-group">
+            <label for="filtrar-duracion">Duración del plan</label>
+            <select id="filtrar-duracion" aria-controls="catalogo-planes" disabled>
+              <option value="">Todas las duraciones</option>
+              <option value="1">1 mes</option>
+              <option value="3">3 meses</option>
+              <option value="6">6 meses</option>
+              <option value="12">12 meses</option>
+            </select>
           </div>
-          <p class="plan-price"><strong>$ 67.500</strong><span> / total</span></p>
-          <p class="plan-description">Tres meses de entrenamiento con un valor preferencial.</p>
-          <a class="button button-outline button-full" href="producto.html">Ver detalle</a>
-        </article>
-
-        <article class="plan-card plan-featured">
-          <span class="featured-label">Recomendado</span>
-          <div class="plan-card-head">
-            <span class="plan-tag">Progreso</span>
-            <h2>Plan Semestral</h2>
-            <p class="plan-duration">6 meses</p>
-          </div>
-          <p class="plan-price"><strong>$ 120.000</strong><span> / total</span></p>
-          <p class="plan-description">Continuidad semestral para sostener objetivos a mediano plazo.</p>
-          <a class="button button-primary button-full" href="producto.html">Ver detalle</a>
-        </article>
-
-        <article class="plan-card">
-          <div class="plan-card-head">
-            <span class="plan-tag">Compromiso</span>
-            <h2>Plan Anual</h2>
-            <p class="plan-duration">12 meses</p>
-          </div>
-          <p class="plan-price"><strong>$ 216.000</strong><span> / total</span></p>
-          <p class="plan-description">La opción de mayor duración y mejor valor mensual.</p>
-          <a class="button button-outline button-full" href="producto.html">Ver detalle</a>
-        </article>
+          <button class="button button-outline" id="limpiar-filtros" type="button" disabled>Limpiar filtros</button>
+        </div>
+        <p id="estado-catalogo" class="catalog-status" role="status" aria-live="polite">Cargando planes…</p>
+        <button class="button button-outline" id="reintentar-catalogo" type="button" hidden>Reintentar carga</button>
+        <noscript><p>Habilitá JavaScript para buscar planes. También podés consultar <a href="listado_tabla.html">el listado en tabla</a>.</p></noscript>
+        <p id="sin-resultados" class="catalog-empty" hidden>No encontramos planes con esos filtros. Probá otra búsqueda o limpiá los filtros.</p>
+        <div id="catalogo-planes" class="plans-grid" aria-busy="true"></div>
       </div>
     </section>
   </main>
@@ -93,5 +72,6 @@
       <p>Paradigmas y Lenguajes de Programación III · 2026</p>
     </div>
   </footer>
+  <script src="js/app.js" defer></script>
 </body>
 </html>

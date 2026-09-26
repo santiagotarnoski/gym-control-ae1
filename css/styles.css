@@ -1278,3 +1278,34 @@ tbody tr:hover {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Tarjeta 3: controles del catálogo dinámico. */
+[hidden] { display: none !important; }
+.catalog-toolbar {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(12rem, 1fr) auto;
+  gap: 1rem;
+  align-items: end;
+  margin: 1.5rem 0;
+}
+.catalog-toolbar select {
+  width: 100%;
+  min-height: 3rem;
+  padding: .75rem .9rem;
+  border: 1px solid #bdcbd4;
+  border-radius: var(--radius-sm);
+  background: var(--color-white);
+  color: var(--color-navy-950);
+  font: inherit;
+}
+.catalog-toolbar select:focus-visible {
+  outline: 3px solid rgba(8, 168, 138, .25);
+  outline-offset: 2px;
+}
+.catalog-toolbar :disabled { opacity: .6; cursor: wait; }
+.catalog-status { margin-bottom: 1.5rem; }
+.catalog-empty { padding: 1.5rem 0; color: var(--color-gray-700); }
+#reintentar-catalogo { margin-bottom: 1.5rem; }
+@media (max-width: 48rem) {
+  .catalog-toolbar { grid-template-columns: 1fr; align-items: stretch; }
+}

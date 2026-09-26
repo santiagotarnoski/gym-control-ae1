@@ -1,0 +1,12 @@
+flowchart TD
+  inicio[Inicio index.html] --> tabla[Listado en tabla listado_tabla.html]
+  inicio --> catalogo[Catálogo dinámico listado_box.html]
+  tabla <--> catalogo
+  catalogo --> consulta[Texto y duración]
+  consulta --> resultados[Resultados filtrados en la misma página]
+  resultados -->|Modificar o limpiar filtros| consulta
+  resultados -->|Ver detalle mensual| detalle[Detalle mensual producto.html]
+  resultados -->|Elegir plan y conservar su ID| seleccion[Selección comprar.html?plan=ID]
+  detalle --> seleccion
+  catalogo -->|Falla la carga HTTP| error[Mensaje de error]
+  error -->|Reintentar| catalogo

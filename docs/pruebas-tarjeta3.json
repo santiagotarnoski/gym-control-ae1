@@ -1,0 +1,151 @@
+{
+  "fecha": "2026-09-26",
+  "navegador": "Google Chrome",
+  "total": 36,
+  "pruebas": [
+    {
+      "caso": "Carga HTTP del JSON y cuatro tarjetas dinámicas",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Finalización del estado de carga",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Búsqueda por plan mensual devuelve Plan Mensual",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Búsqueda por TRIMESTRAL devuelve Plan Trimestral",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Búsqueda por renovacion devuelve Plan Mensual",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Búsqueda por progreso devuelve Plan Semestral",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Búsqueda por opción devuelve Plan Anual",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Mensual encuentra también la descripción de valor mensual del plan anual",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Filtro de duración 1 meses",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Filtro de duración 3 meses",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Filtro de duración 6 meses",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Filtro de duración 12 meses",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Texto y duración se combinan con condición AND",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Filtros incompatibles muestran cero resultados y mensaje",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Limpiar restaura el catálogo y devuelve el foco a la búsqueda",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Una búsqueda de espacios equivale a buscar todos",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Texto desconocido no muestra tarjetas",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Los filtros trabajan en memoria y no repiten fetch",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Se conserva el plan destacado del TP1",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "La ficha mensual conserva su enlace de detalle",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "El enlace conserva el plan elegido y activa el subtotal existente",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "El subtotal del compañero mantiene su funcionamiento",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "La validación del cupón original sigue funcionando",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Identificador de plan desconocido no preselecciona otro",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Diseño móvil de 390 px sin desbordamiento horizontal",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Recorrido normal sin errores JavaScript",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Sin onclick ni onsubmit en las páginas HTML",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "HTTP 404 informa el error y bloquea filtros",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Reintentar recupera el catálogo después del error",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "JSON malformado no se presenta como un catálogo válido",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Esquema no array no se presenta como un catálogo válido",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Precio inválido no se presenta como un catálogo válido",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Identificador duplicado no se presenta como un catálogo válido",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Fallo de red muestra estado de error",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Catálogo vacío muestra un estado distinto del fallo HTTP",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "El contenido del JSON se inserta como texto y no como HTML",
+      "resultado": "Correcto"
+    }
+  ]
+}
