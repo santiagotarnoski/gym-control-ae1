@@ -1,4 +1,4 @@
-# Gym Control — Actividad Evaluativa 1
+# Gym Control - Actividades Evaluativas 1 y 2
 
 Frontend estático para consultar y seleccionar visualmente planes de un gimnasio. El proyecto implementa **RF05 - Gestión de planes** y representa parcialmente **RF06 - Gestión de membresías**, sin realizar asignaciones ni guardar datos.
 
@@ -77,10 +77,10 @@ El análisis y diseño de la aplicación se encuentra en [`docs/Gym_Control_AE1_
 
 Las capturas de las validaciones de la pantalla de compra estan en [`docs/capturas/`](docs/capturas).
 
-La nueva entrega contiene:
+La Actividad Evaluativa 2 se entrega con la plantilla institucional de la UCP:
 
-- [Informe de tarjeta 3 en PDF](docs/Informe_Gym_Control_Tarjeta_3.pdf).
-- [Informe editable en Markdown](docs/Informe_Gym_Control_Tarjeta_3.md).
+- [Informe final en PDF](docs/Tarnoski%20Santiago_Actividad%20Evaluativa%202.pdf).
+- [Informe editable en Word](docs/Tarnoski%20Santiago_Actividad%20Evaluativa%202.docx).
 - [Mapa navegacional editable](docs/mapa-navegacional-tarjeta3.mmd).
 - [Capturas de tarjeta 3](docs/capturas-tarjeta3/).
 - [Registro de pruebas](docs/pruebas-tarjeta3.json).
