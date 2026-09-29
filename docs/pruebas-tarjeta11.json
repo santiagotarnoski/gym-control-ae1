@@ -1,0 +1,55 @@
+{
+  "fecha": "2026-09-29",
+  "navegador": "Google Chrome",
+  "total": 12,
+  "pruebas": [
+    {
+      "caso": "El contador inicia en 0 / 500 caracteres",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "El contador reacciona al evento input sin enviar el formulario",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Menos de 10 caracteres bloquea el envío sin llamar a fetch",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Un reclamo de solo espacios se rechaza por trim()",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Un reclamo válido dispara un único fetch asíncrono",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "El formulario se limpia tras la confirmación",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Más de 500 caracteres se rechaza y resalta el contador",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Sin onclick ni onsubmit en las páginas HTML",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Error HTTP 500 muestra el mensaje de error, no bloquea el formulario",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Reintentar el envío después del error funciona",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Diseño móvil de 390 px sin desbordamiento horizontal",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Recorrido normal sin errores JavaScript",
+      "resultado": "Correcto"
+    }
+  ]
+}

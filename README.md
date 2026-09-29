@@ -15,9 +15,10 @@ Frontend estático para consultar y seleccionar visualmente planes de un gimnasi
 - `index.html`: portada principal.
 - `listado_tabla.html`: listado de planes en una tabla HTML.
 - `listado_box.html`: listado de planes en cards.
-- `js/app.js`: buscador y filtro del catálogo, carga HTTP y preselección del plan elegido; registro y acceso de socios.
+- `js/app.js`: buscador y filtro del catálogo, carga HTTP y preselección del plan elegido; registro y acceso de socios; formulario de reclamos.
 - `data/planes.json`: catálogo de los cuatro planes de ejemplo del TP1.
-- `producto.html`: detalle del Plan Mensual.
+- `producto.html`: detalle del Plan Mensual y formulario de reclamos y consultas.
+- `data/confirmacion-reclamo.json`: respuesta simulada del servidor al enviar un reclamo.
 - `comprar.html`: formulario visual para seleccionar un plan.
 - `acceso.html`: ingreso, registro y vista del socio autenticado.
 - `data/usuarios.json`: socios de prueba; guarda una sal y el resumen SHA-256 de la clave, nunca la clave.
@@ -26,7 +27,7 @@ Frontend estático para consultar y seleccionar visualmente planes de un gimnasi
 
 ## Ejecución
 
-Las tarjetas 3 y 4 requieren un servidor HTTP para cargar los JSON con `fetch()`. Abrir el HTML con doble clic (`file://`) no permite probar correctamente esa petición.
+Las tarjetas 3, 4 y 11 requieren un servidor HTTP para cargar los JSON con `fetch()`. Abrir el HTML con doble clic (`file://`) no permite probar correctamente esa petición.
 
 Con Python instalado, ejecutar `iniciar.bat` en Windows o abrir una terminal en la carpeta del proyecto y ejecutar:
 
@@ -108,6 +109,27 @@ El registro de cuentas nuevas es una simulación: comprueba por HTTP que el e-ma
 
 `npm test` ejecuta también `tests/acceso.cjs`, con 35 comprobaciones en Google Chrome y fecha fija para evaluar los vencimientos. El registro se guarda en `docs/pruebas-tarjeta4.json` y las capturas en `docs/capturas-tarjeta4/`.
 
+## Tarjeta 11: formulario de reclamos y consultas
+
+Aporte de **Martins, Santino**. Se implementa la **opción 11: Formulario de reseñas, opiniones o reclamos**, acotada a reclamos y consultas sobre el Plan Mensual. La fundamentación utiliza **RNA** como proceso conceptual de PLN y vectorización para clasificar reclamos.
+
+- Eventos `input` y `submit` mediante `addEventListener()` en `js/app.js`.
+- Contador de caracteres en vivo con `.length`, con un mínimo de 10 y un máximo de 500.
+- `.trim()` descarta los reclamos formados solo por espacios.
+- Envío con `fetch()` y `async/await` a `data/confirmacion-reclamo.json`, que simula la respuesta del servidor.
+- Confirmación o error en el DOM; ante un fallo HTTP el formulario conserva el texto para reintentar.
+
+### Demostración
+
+1. Abrir la ficha del **Plan Mensual** y bajar hasta **Reclamos y consultas**.
+2. Escribir: el contador se actualiza con cada tecla.
+3. Enviar `corto`: aparece el aviso del mínimo de 10 caracteres y no se hace la petición.
+4. Enviar un reclamo válido: aparece la confirmación y el formulario se vacía.
+
+### Pruebas de la tarjeta 11
+
+`npm test` ejecuta también `tests/reclamos.cjs`, con 12 comprobaciones en Google Chrome. El registro se guarda en `docs/pruebas-tarjeta11.json` y las capturas en `docs/capturas-tarjeta11/`.
+
 ## Documentación
 
 El análisis y diseño de la aplicación se encuentra en [`docs/Gym_Control_AE1_Analisis_y_Diseno.pdf`](docs/Gym_Control_AE1_Analisis_y_Diseno.pdf).
@@ -124,6 +146,9 @@ La Actividad Evaluativa 2 se entrega con la plantilla institucional de la UCP:
 - [Diagrama de vistas VSDM de tarjeta 4](docs/vistas-vsdm-tarjeta4.svg).
 - [Capturas de tarjeta 4](docs/capturas-tarjeta4/).
 - [Registro de pruebas de tarjeta 4](docs/pruebas-tarjeta4.json).
+- [Mapa navegacional editable de tarjeta 11](docs/mapa-navegacional-tarjeta11.mmd).
+- [Capturas de tarjeta 11](docs/capturas-tarjeta11/).
+- [Registro de pruebas de tarjeta 11](docs/pruebas-tarjeta11.json).
 
 ## Integrantes
 

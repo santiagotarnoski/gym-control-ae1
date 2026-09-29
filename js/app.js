@@ -438,3 +438,75 @@
 
   mostrarVista();
 })();
+
+/* Tarjeta 11: formulario de reclamos y consultas. */
+(() => {
+  "use strict";
+
+  const formulario = document.getElementById("form-reclamo");
+  if (!formulario) return;
+
+  const comentario = document.getElementById("comentario-reclamo");
+  const contador = document.getElementById("contador-reclamo");
+  const mensaje = document.getElementById("mensaje-reclamo");
+  const boton = document.getElementById("enviar-reclamo");
+  const LIMITE = 500;
+  const MINIMO = 10;
+
+  // El contador y la validación reaccionan a cada tecla, sin esperar el envío.
+  function actualizarContador() {
+    const longitud = comentario.value.length;
+    contador.textContent = `${longitud} / ${LIMITE} caracteres`;
+    contador.classList.toggle("field-hint-alerta", longitud > LIMITE);
+  }
+
+  function limpiarMensaje() {
+    mensaje.textContent = "";
+    mensaje.classList.remove("mensaje-error", "mensaje-exito");
+  }
+
+  async function enviarReclamo(evento) {
+    evento.preventDefault();
+    limpiarMensaje();
+
+    // .trim() evita que espacios en blanco cuenten como un reclamo válido.
+    const texto = comentario.value.trim();
+    if (texto.length < MINIMO) {
+      mensaje.textContent = `Escribí al menos ${MINIMO} caracteres para enviar tu reclamo.`;
+      mensaje.classList.add("mensaje-error");
+      comentario.focus();
+      return;
+    }
+    if (texto.length > LIMITE) {
+      mensaje.textContent = `Tu reclamo supera los ${LIMITE} caracteres permitidos.`;
+      mensaje.classList.add("mensaje-error");
+      comentario.focus();
+      return;
+    }
+
+    boton.disabled = true;
+    mensaje.classList.remove("mensaje-error", "mensaje-exito");
+    mensaje.textContent = "Enviando tu reclamo…";
+
+    try {
+      // Llamada HTTP asíncrona a un archivo local que simula la respuesta del servidor.
+      const respuesta = await fetch("data/confirmacion-reclamo.json", { cache: "no-store" });
+      if (!respuesta.ok) throw new Error(`Error HTTP ${respuesta.status}`);
+      const datos = await respuesta.json();
+      mensaje.textContent = datos.mensaje ?? "¡Gracias! Recibimos tu reclamo.";
+      mensaje.classList.add("mensaje-exito");
+      formulario.reset();
+      actualizarContador();
+    } catch (error) {
+      console.error("No se pudo enviar el reclamo:", error);
+      mensaje.textContent = "No pudimos enviar tu reclamo. Revisá el servidor HTTP e intentá de nuevo.";
+      mensaje.classList.add("mensaje-error");
+    } finally {
+      boton.disabled = false;
+    }
+  }
+
+  comentario.addEventListener("input", actualizarContador);
+  formulario.addEventListener("submit", enviarReclamo);
+  actualizarContador();
+})();

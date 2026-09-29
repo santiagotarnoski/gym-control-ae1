@@ -79,6 +79,23 @@
         </article>
       </div>
     </section>
+    <section class="section section-light claims-section" aria-labelledby="titulo-reclamos">
+      <div class="container">
+        <h2 id="titulo-reclamos">Reclamos y consultas sobre el Plan Mensual</h2>
+        <p class="fieldset-help">Contanos un problema, una consulta o un reclamo sobre este plan. En esta demostración el mensaje no se guarda.</p>
+        <form class="claims-form" id="form-reclamo" novalidate>
+          <div class="form-group form-group-wide">
+            <label for="comentario-reclamo">Tu reclamo o consulta</label>
+            <textarea id="comentario-reclamo" name="comentario" rows="4" placeholder="Contanos qué pasó, por ejemplo un problema con un equipo o con el horario de atención…" required></textarea>
+            <p class="field-hint" id="contador-reclamo">0 / 500 caracteres</p>
+          </div>
+          <div class="form-actions">
+            <button class="button button-primary" type="submit" id="enviar-reclamo">Enviar reclamo</button>
+          </div>
+          <p id="mensaje-reclamo" class="mensaje-reclamo" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">

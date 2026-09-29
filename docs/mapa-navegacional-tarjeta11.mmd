@@ -1,0 +1,12 @@
+flowchart TD
+  inicio[Inicio index.html] --> catalogo[Catálogo dinámico listado_box.html]
+  catalogo -->|Ver detalle mensual| detalle[Detalle mensual producto.html]
+  detalle --> formulario[Formulario de reclamo dentro de producto.html]
+  detalle -->|Seleccionar plan| seleccion[Selección comprar.html]
+  formulario -->|input| contador[Contador de caracteres evento input]
+  contador -->|submit| envio[fetch async a confirmacion-reclamo.json]
+  contador -->|"< 10 o > 500"| errorTexto[Mensaje de error sin fetch]
+  errorTexto -->|corregir texto| formulario
+  envio -->|respuesta OK| exito[Mensaje de éxito y formulario limpio]
+  envio -->|error HTTP / red| errorEnvio[Mensaje de error formulario habilitado]
+  errorEnvio -->|reintentar| envio
