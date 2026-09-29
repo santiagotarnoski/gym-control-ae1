@@ -138,11 +138,11 @@ Las capturas de las validaciones de la pantalla de compra estan en [`docs/captur
 
 La Actividad Evaluativa 2 se entrega con la plantilla institucional de la UCP:
 
-- [Informe final en PDF](docs/Tarnoski%20Santiago_Actividad%20Evaluativa%202.pdf).
-- [Informe editable en Word](docs/Tarnoski%20Santiago_Actividad%20Evaluativa%202.docx).
-- [Mapa navegacional editable](docs/mapa-navegacional-tarjeta3.mmd).
+- [Informe final en PDF, con las tarjetas 3, 4 y 11](docs/Martins%20-%20Olexyn%20-%20Tarnoski_Actividad%20Evaluativa%202.pdf).
+- [Informe editable en Word](docs/Martins%20-%20Olexyn%20-%20Tarnoski_Actividad%20Evaluativa%202.docx).
+- [Mapa navegacional editable de tarjeta 3](docs/mapa-navegacional-tarjeta3.mmd).
 - [Capturas de tarjeta 3](docs/capturas-tarjeta3/).
-- [Registro de pruebas](docs/pruebas-tarjeta3.json).
+- [Registro de pruebas de tarjeta 3](docs/pruebas-tarjeta3.json).
 - [Diagrama de vistas VSDM de tarjeta 4](docs/vistas-vsdm-tarjeta4.svg).
 - [Capturas de tarjeta 4](docs/capturas-tarjeta4/).
 - [Registro de pruebas de tarjeta 4](docs/pruebas-tarjeta4.json).
