@@ -155,3 +155,286 @@
   reintentar.addEventListener("click", cargarCatalogo);
   cargarCatalogo();
 })();
+
+/* Tarjeta 4: registro y acceso de socios con vistas por tipo de usuario (VSDM). */
+(() => {
+  "use strict";
+
+  const CLAVE_SESION = "gymcontrol.sesion";
+  const LARGO_MINIMO = 8;
+  const DIAS_AVISO = 7;
+  const fechaLarga = new Intl.DateTimeFormat("es-AR", { dateStyle: "long" });
+  const emailValido = texto => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(texto);
+  let sesionEnMemoria = null;
+
+  // sessionStorage puede estar bloqueado; en ese caso la sesión dura mientras la página siga abierta.
+  function leerSesion() {
+    try {
+      const sesion = JSON.parse(sessionStorage.getItem(CLAVE_SESION));
+      return sesion && typeof sesion.nombre === "string" && typeof sesion.email === "string"
+        ? sesion : null;
+    } catch {
+      return sesionEnMemoria;
+    }
+  }
+
+  function guardarSesion(sesion) {
+    sesionEnMemoria = sesion;
+    try {
+      if (sesion) sessionStorage.setItem(CLAVE_SESION, JSON.stringify(sesion));
+      else sessionStorage.removeItem(CLAVE_SESION);
+    } catch {
+      // Se conserva la copia en memoria.
+    }
+  }
+
+  // El mismo enlace del encabezado se presenta distinto al visitante y al socio.
+  function actualizarEncabezado(sesion) {
+    document.querySelectorAll("[data-enlace-acceso]").forEach(enlace => {
+      enlace.textContent = sesion ? "Mi cuenta" : "Ingresar";
+    });
+  }
+
+  const sesionInicial = leerSesion();
+  actualizarEncabezado(sesionInicial);
+
+  // En comprar.html el socio autenticado encuentra sus datos precargados.
+  const compraNombre = document.getElementById("nombre");
+  const compraEmail = document.getElementById("email");
+  if (sesionInicial && compraNombre && compraEmail) {
+    if (!compraNombre.value) compraNombre.value = sesionInicial.nombre;
+    if (!compraEmail.value) compraEmail.value = sesionInicial.email;
+  }
+
+  const formIngreso = document.getElementById("form-ingreso");
+  if (!formIngreso) return;
+
+  const formRegistro = document.getElementById("form-registro");
+  const ingresoEmail = document.getElementById("ingreso-email");
+  const ingresoClave = document.getElementById("ingreso-clave");
+  const mensajeIngreso = document.getElementById("mensaje-ingreso");
+  const registroNombre = document.getElementById("registro-nombre");
+  const registroEmail = document.getElementById("registro-email");
+  const registroClave = document.getElementById("registro-clave");
+  const registroRepetir = document.getElementById("registro-repetir");
+  const mensajeRegistro = document.getElementById("mensaje-registro");
+  const vistaVisitante = document.getElementById("vista-visitante");
+  const vistaSocio = document.getElementById("vista-socio");
+  const saludo = document.getElementById("saludo-socio");
+  const etiqueta = document.getElementById("socio-etiqueta");
+  const salidaPlan = document.getElementById("socio-plan");
+  const salidaEstado = document.getElementById("socio-estado");
+  const salidaVencimiento = document.getElementById("socio-vencimiento");
+  const salidaDias = document.getElementById("socio-dias");
+  const aviso = document.getElementById("socio-aviso");
+  const renovar = document.getElementById("socio-renovar");
+  const cerrarSesion = document.getElementById("cerrar-sesion");
+
+  // ---- Servidor simulado: los datos llegan por HTTP y la clave se compara por su resumen.
+  async function consultarSocios() {
+    const respuesta = await fetch("data/usuarios.json", { cache: "no-store" });
+    if (!respuesta.ok) throw new Error(`Error HTTP ${respuesta.status}`);
+    const socios = await respuesta.json();
+    if (!Array.isArray(socios)) throw new Error("El archivo de socios debe ser un array.");
+    return socios;
+  }
+
+  async function resumenSHA256(texto) {
+    const bytes = new TextEncoder().encode(texto);
+    const resumen = await crypto.subtle.digest("SHA-256", bytes);
+    return [...new Uint8Array(resumen)].map(b => b.toString(16).padStart(2, "0")).join("");
+  }
+
+  async function verificarCredenciales(email, clave) {
+    const socio = (await consultarSocios()).find(s => s.email.toLowerCase() === email);
+    if (!socio) return null;
+    return await resumenSHA256(socio.sal + clave) === socio.claveHash ? socio : null;
+  }
+
+  async function nombreDelPlan(planId) {
+    try {
+      const respuesta = await fetch("data/planes.json");
+      if (!respuesta.ok) throw new Error(`Error HTTP ${respuesta.status}`);
+      const plan = (await respuesta.json()).find(p => p.id === planId);
+      return plan ? plan.nombre : planId;
+    } catch {
+      return planId;
+    }
+  }
+
+  // ---- Estado de la membresía (RF07) a partir de la fecha de vencimiento.
+  function fechaLocal(iso) {
+    const [anio, mes, dia] = iso.split("-").map(Number);
+    return new Date(anio, mes - 1, dia);
+  }
+
+  function estadoMembresia(membresia) {
+    if (!membresia) return { texto: "Sin membresía", clase: "estado-sin", dias: null };
+    const hoy = new Date();
+    hoy.setHours(0, 0, 0, 0);
+    const dias = Math.round((fechaLocal(membresia.vencimiento) - hoy) / 86400000);
+    if (dias < 0) return { texto: "Vencida", clase: "estado-vencida", dias };
+    if (dias <= DIAS_AVISO) return { texto: "Por vencer", clase: "estado-por-vencer", dias };
+    return { texto: "Activa", clase: "estado-activa", dias };
+  }
+
+  const cantidadDias = n => `${n} ${n === 1 ? "día" : "días"}`;
+
+  const avisos = {
+    "estado-activa": "Tu membresía está al día.",
+    "estado-por-vencer": "Tu membresía vence pronto. Podés renovarla desde acá.",
+    "estado-vencida": "Tu membresía está vencida. Renovala para volver a entrenar.",
+    "estado-sin": "Todavía no tenés un plan activo. Elegí uno para empezar."
+  };
+
+  // ---- Vistas: el visitante ve los formularios; el socio, los datos de su membresía.
+  function mostrarVista(mensaje) {
+    const sesion = leerSesion();
+    actualizarEncabezado(sesion);
+    vistaVisitante.hidden = Boolean(sesion);
+    vistaSocio.hidden = !sesion;
+    if (!sesion) return;
+
+    const membresia = sesion.membresia;
+    const estado = estadoMembresia(membresia);
+    saludo.textContent = `Hola, ${sesion.nombre.split(" ")[0]}`;
+    etiqueta.textContent = sesion.id ? `Socio ${sesion.id}` : "Cuenta nueva";
+    salidaEstado.textContent = estado.texto;
+    salidaEstado.className = `estado-badge ${estado.clase}`;
+    salidaVencimiento.textContent = membresia ? fechaLarga.format(fechaLocal(membresia.vencimiento)) : "—";
+    salidaDias.textContent = estado.dias === null ? "—"
+      : estado.dias < 0 ? `Venció hace ${cantidadDias(-estado.dias)}` : cantidadDias(estado.dias);
+    aviso.textContent = mensaje ? `${mensaje} ${avisos[estado.clase]}` : avisos[estado.clase];
+    if (membresia) {
+      renovar.textContent = "Renovar plan";
+      renovar.href = `comprar.html?plan=${encodeURIComponent(membresia.planId)}`;
+      salidaPlan.textContent = "Cargando…";
+      nombreDelPlan(membresia.planId).then(nombre => { salidaPlan.textContent = nombre; });
+    } else {
+      renovar.textContent = "Elegir un plan";
+      renovar.href = "listado_box.html";
+      salidaPlan.textContent = "Sin plan";
+    }
+  }
+
+  function iniciarSesion(socio, mensaje) {
+    // La sesión nunca guarda la sal ni el resumen de la clave.
+    const { id = null, nombre, email, membresia = null } = socio;
+    guardarSesion({ id, nombre, email, membresia });
+    mostrarVista(mensaje);
+    saludo.focus();
+  }
+
+  // ---- Mensajes y validación.
+  function mostrarMensaje(elemento, texto, tipo) {
+    elemento.textContent = texto;
+    elemento.classList.toggle("mensaje-error", tipo === "error");
+    elemento.classList.toggle("mensaje-exito", tipo === "exito");
+  }
+
+  function marcarError(campo, mensaje, texto) {
+    campo.setAttribute("aria-invalid", "true");
+    campo.focus();
+    mostrarMensaje(mensaje, texto, "error");
+  }
+
+  // Cada regla es [campo, esInvalido, texto]; se informa la primera que falla.
+  function validar(reglas, mensaje) {
+    const falla = reglas.find(([, esInvalido]) => esInvalido);
+    if (falla) marcarError(falla[0], mensaje, falla[2]);
+    return !falla;
+  }
+
+  function ocupado(form, activo) {
+    const boton = form.querySelector('button[type="submit"]');
+    if (activo) boton.dataset.texto = boton.textContent;
+    boton.textContent = activo ? "Verificando…" : boton.dataset.texto;
+    boton.disabled = activo;
+    form.setAttribute("aria-busy", String(activo));
+  }
+
+  const errorConexion = "No se pudo verificar la cuenta. Revisá que el sitio se abra desde el servidor local y reintentá.";
+
+  // ---- Eventos desacoplados del HTML.
+  formIngreso.addEventListener("submit", async evento => {
+    evento.preventDefault();
+    const email = ingresoEmail.value.trim().toLowerCase();
+    const clave = ingresoClave.value;
+    const valido = validar([
+      [ingresoEmail, email === "", "Ingresá tu e-mail."],
+      [ingresoEmail, !emailValido(email), "Revisá el formato del e-mail."],
+      [ingresoClave, clave.trim() === "", "Ingresá tu clave."],
+      [ingresoClave, clave.length < LARGO_MINIMO, `La clave tiene al menos ${LARGO_MINIMO} caracteres.`]
+    ], mensajeIngreso);
+    if (!valido) return;
+
+    ocupado(formIngreso, true);
+    mostrarMensaje(mensajeIngreso, "Verificando credenciales…");
+    try {
+      const socio = await verificarCredenciales(email, clave);
+      if (!socio) {
+        ingresoClave.value = "";
+        // Mensaje genérico: no revela si el e-mail existe.
+        marcarError(ingresoClave, mensajeIngreso, "E-mail o clave incorrectos.");
+        return;
+      }
+      formIngreso.reset();
+      mostrarMensaje(mensajeIngreso, "");
+      iniciarSesion(socio);
+    } catch (error) {
+      console.error("No se pudo verificar la cuenta:", error);
+      mostrarMensaje(mensajeIngreso, errorConexion, "error");
+    } finally {
+      ocupado(formIngreso, false);
+    }
+  });
+
+  formRegistro.addEventListener("submit", async evento => {
+    evento.preventDefault();
+    const nombre = registroNombre.value.trim().replace(/\s+/g, " ");
+    const email = registroEmail.value.trim().toLowerCase();
+    const clave = registroClave.value;
+    const valido = validar([
+      [registroNombre, nombre === "", "Ingresá tu nombre y apellido."],
+      [registroEmail, email === "", "Ingresá tu e-mail."],
+      [registroEmail, !emailValido(email), "Revisá el formato del e-mail."],
+      [registroClave, clave.trim() === "", "Ingresá una clave."],
+      [registroClave, clave.length < LARGO_MINIMO, `La clave debe tener al menos ${LARGO_MINIMO} caracteres.`],
+      [registroRepetir, registroRepetir.value !== clave, "Las claves no coinciden."]
+    ], mensajeRegistro);
+    if (!valido) return;
+
+    ocupado(formRegistro, true);
+    mostrarMensaje(mensajeRegistro, "Verificando datos…");
+    try {
+      const socios = await consultarSocios();
+      if (socios.some(s => s.email.toLowerCase() === email)) {
+        marcarError(registroEmail, mensajeRegistro, "Ya existe una cuenta con ese e-mail. Ingresá desde el formulario 01.");
+        return;
+      }
+      // Simulación: el alta no se envía a un servidor real ni se agrega al JSON.
+      formRegistro.reset();
+      mostrarMensaje(mensajeRegistro, "");
+      iniciarSesion({ nombre, email }, "Cuenta creada.");
+    } catch (error) {
+      console.error("No se pudo registrar la cuenta:", error);
+      mostrarMensaje(mensajeRegistro, errorConexion, "error");
+    } finally {
+      ocupado(formRegistro, false);
+    }
+  });
+
+  // Al corregir un campo se quita su marca de error.
+  [formIngreso, formRegistro].forEach(form => form.addEventListener("input", evento => {
+    evento.target.removeAttribute("aria-invalid");
+  }));
+
+  cerrarSesion.addEventListener("click", () => {
+    guardarSesion(null);
+    mostrarVista();
+    mostrarMensaje(mensajeIngreso, "Cerraste sesión.", "exito");
+    ingresoEmail.focus();
+  });
+
+  mostrarVista();
+})();

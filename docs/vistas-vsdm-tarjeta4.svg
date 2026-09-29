@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="580" viewBox="0 0 1300 580" font-family="Arial, Helvetica, sans-serif">
+  <!-- Tarjeta 4: vistas por clase de usuario (VSDM). Fuente editable del diagrama del informe. -->
+  <defs>
+    <marker id="flecha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#3f5873"/>
+    </marker>
+  </defs>
+  <rect width="1300" height="580" fill="#ffffff"/>
+
+  <!-- Carriles: una vista por clase de usuario. -->
+  <rect x="20" y="20" width="590" height="540" rx="18" fill="#f4f6f8" stroke="#b8c4ce" stroke-width="2" stroke-dasharray="8 6"/>
+  <rect x="690" y="20" width="590" height="540" rx="18" fill="#eaf7f3" stroke="#7cc8b5" stroke-width="2" stroke-dasharray="8 6"/>
+  <text x="44" y="56" font-size="21" font-weight="bold" fill="#1f2f40">Vista de visitante</text>
+  <text x="44" y="82" font-size="16" fill="#3f5873">Clase de usuario: Visitante</text>
+  <text x="714" y="56" font-size="21" font-weight="bold" fill="#1f2f40">Vista de socio autenticado</text>
+  <text x="714" y="82" font-size="16" fill="#3f5873">Clase de usuario: Socio (especializa a Visitante)</text>
+
+  <!-- Nodos de la vista de visitante. -->
+  <g fill="#f7f9fb" stroke="#3f5873" stroke-width="2.5">
+    <rect x="140" y="110" width="340" height="100" rx="10"/>
+    <rect x="140" y="270" width="340" height="100" rx="10"/>
+    <rect x="140" y="440" width="340" height="100" rx="10"/>
+    <rect x="820" y="110" width="340" height="100" rx="10"/>
+    <rect x="820" y="270" width="340" height="100" rx="10"/>
+    <rect x="820" y="440" width="340" height="100" rx="10"/>
+  </g>
+  <g font-size="21" font-weight="bold" fill="#1f2f40">
+    <text x="158" y="145">Páginas públicas</text>
+    <text x="158" y="305">Acceso</text>
+    <text x="158" y="475">Selección</text>
+    <text x="838" y="145">Encabezado del sitio</text>
+    <text x="838" y="305">Mi cuenta</text>
+    <text x="838" y="475">Renovación</text>
+  </g>
+  <g font-size="17" fill="#3f5873">
+    <text x="158" y="172">Inicio, listados y detalle</text>
+    <text x="158" y="195">Enlace «Ingresar»</text>
+    <text x="158" y="332">acceso.html</text>
+    <text x="158" y="355">Formularios Ingresar y Crear cuenta</text>
+    <text x="158" y="502">comprar.html</text>
+    <text x="158" y="525">Datos del cliente vacíos</text>
+    <text x="838" y="172">Enlace «Mi cuenta» en todas</text>
+    <text x="838" y="195">las páginas</text>
+    <text x="838" y="332">acceso.html</text>
+    <text x="838" y="355">Plan, estado, vencimiento y días</text>
+    <text x="838" y="502">comprar.html?plan=ID</text>
+    <text x="838" y="525">Plan marcado y datos precargados</text>
+  </g>
+
+  <!-- Enlaces navegacionales. -->
+  <g stroke="#3f5873" stroke-width="2.5" fill="none" marker-end="url(#flecha)">
+    <path d="M310,210 L310,266"/>
+    <path d="M140,160 L90,160 L90,490 L136,490"/>
+    <path d="M480,305 L816,305"/>
+    <path d="M820,345 L484,345"/>
+    <path d="M990,370 L990,436"/>
+  </g>
+  <path d="M990,270 L990,214" stroke="#3f5873" stroke-width="2.5" fill="none" stroke-dasharray="6 5" marker-end="url(#flecha)"/>
+
+  <!-- El contorno blanco separa los rótulos de los bordes de los carriles. -->
+  <g font-size="16" fill="#1f2f40" stroke="#ffffff" stroke-width="7" stroke-linejoin="round" paint-order="stroke">
+    <text x="322" y="244">Ingresar</text>
+    <text x="78" y="325" transform="rotate(-90 78 325)" text-anchor="middle">Elegir plan</text>
+    <text x="650" y="270" text-anchor="middle">Ingreso o registro válidos</text>
+    <text x="650" y="292" text-anchor="middle" fill="#3f5873">(fetch a data/usuarios.json)</text>
+    <text x="650" y="368" text-anchor="middle">Cerrar sesión</text>
+    <text x="1002" y="409">Renovar plan</text>
+    <text x="1002" y="248">Sesión activa</text>
+  </g>
+  <text x="310" y="402" font-size="15" font-style="italic" fill="#3f5873" text-anchor="middle">Datos inválidos o credenciales incorrectas:</text>
+  <text x="310" y="421" font-size="15" font-style="italic" fill="#3f5873" text-anchor="middle">mensaje en el mismo nodo</text>
+</svg>

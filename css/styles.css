@@ -1309,3 +1309,52 @@ tbody tr:hover {
 @media (max-width: 48rem) {
   .catalog-toolbar { grid-template-columns: 1fr; align-items: stretch; }
 }
+
+/* Tarjeta 4: acceso de socios y vistas por tipo de usuario. */
+.access-layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  align-items: start;
+}
+.access-form fieldset { padding-bottom: 1.5rem; }
+.access-fields { display: grid; gap: 1rem; }
+.access-form button:disabled { opacity: .6; cursor: wait; }
+.access-message { margin: 1rem 0 0; font-size: .9rem; font-weight: 700; }
+.access-message:empty { display: none; }
+.form-group input[aria-invalid="true"] {
+  border-color: #a52631;
+  box-shadow: 0 0 0 3px rgba(165, 38, 49, .12);
+}
+.access-notice { max-width: 58rem; margin: 1.5rem auto 0; }
+.access-notice code { font-size: .8rem; }
+.member-panel {
+  max-width: 44rem;
+  margin-inline: auto;
+  padding: clamp(1.4rem, 4vw, 2.5rem);
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+.member-panel .eyebrow { color: var(--color-teal-600); }
+.member-panel h2:focus { outline: none; }
+.member-panel .product-data { margin-bottom: 1.25rem; }
+.member-note { color: var(--color-gray-700); }
+.estado-badge {
+  display: inline-block;
+  padding: .15rem .75rem;
+  border-radius: 999px;
+  font-size: 1rem;
+}
+.estado-activa { color: #06745f; background: var(--color-teal-100); }
+.estado-por-vencer { color: #7a4d00; background: #fff1d1; }
+.estado-vencida { color: #a52631; background: #fde8ea; }
+.estado-sin { color: var(--color-gray-700); background: var(--color-gray-100); }
+@media (max-width: 48rem) {
+  .access-layout { grid-template-columns: 1fr; }
+}
+@media (max-width: 36rem) {
+  /* Con el enlace de acceso, el menú pasa a dos filas para no ocultar "Elegir plan". */
+  .main-nav { flex-wrap: wrap; overflow-x: visible; }
+}

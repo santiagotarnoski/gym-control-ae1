@@ -1,0 +1,147 @@
+{
+  "fecha": "2026-09-29",
+  "navegador": "Google Chrome",
+  "total": 35,
+  "pruebas": [
+    {
+      "caso": "El visitante ve los formularios de ingreso y registro",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Ingreso con e-mail vacío: mensaje, marca y foco en el campo",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Un e-mail de solo espacios se considera vacío (trim)",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "E-mail con formato inválido",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Clave de solo espacios se considera vacía",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Clave menor a 8 caracteres se rechaza sin llamar al servidor",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Al corregir el campo se quita la marca de error",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Clave incorrecta: fetch al JSON y mensaje genérico",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "E-mail inexistente recibe el mismo mensaje genérico",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Credenciales válidas (mayúsculas y espacios en el e-mail) muestran la vista del socio",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Membresía activa: plan desde planes.json, vencimiento y días restantes",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "El encabezado cambia de Ingresar a Mi cuenta",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "La sesión no guarda la clave, la sal ni el resumen",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "La clave no viaja en la URL",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "La sesión se conserva al recargar la página",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Las demás páginas reconocen al socio autenticado",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Renovar lleva a comprar.html con plan marcado, datos precargados y subtotal",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Cerrar sesión vuelve a la vista de visitante y borra la sesión",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Sin sesión, el formulario de compra no se precarga",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Membresía vencida informa los días transcurridos",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Membresía a 7 días o menos se marca Por vencer",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Registro con nombre vacío",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Registro con clave menor a 8 caracteres",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Registro con claves que no coinciden",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Registro con e-mail ya existente consultado por fetch",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Registro válido inicia sesión como socio sin membresía",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "El nombre ingresado se muestra como texto y no como HTML",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Diseño móvil de 390 px sin desbordamiento y con Elegir plan visible",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Recorrido normal sin errores JavaScript",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Sin onclick ni onsubmit en las páginas HTML",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "HTTP 404 informa el error y rehabilita el botón",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Fallo de red no permite el ingreso y muestra el error",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "JSON malformado no permite el ingreso y muestra el error",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Esquema no array no permite el ingreso y muestra el error",
+      "resultado": "Correcto"
+    },
+    {
+      "caso": "Restablecido el servidor, el ingreso funciona",
+      "resultado": "Correcto"
+    }
+  ]
+}

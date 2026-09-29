@@ -15,16 +15,18 @@ Frontend estático para consultar y seleccionar visualmente planes de un gimnasi
 - `index.html`: portada principal.
 - `listado_tabla.html`: listado de planes en una tabla HTML.
 - `listado_box.html`: listado de planes en cards.
-- `js/app.js`: buscador y filtro del catálogo, carga HTTP y preselección del plan elegido.
+- `js/app.js`: buscador y filtro del catálogo, carga HTTP y preselección del plan elegido; registro y acceso de socios.
 - `data/planes.json`: catálogo de los cuatro planes de ejemplo del TP1.
 - `producto.html`: detalle del Plan Mensual.
 - `comprar.html`: formulario visual para seleccionar un plan.
+- `acceso.html`: ingreso, registro y vista del socio autenticado.
+- `data/usuarios.json`: socios de prueba; guarda una sal y el resumen SHA-256 de la clave, nunca la clave.
 - `js/subtotal.js`: calcula en pantalla el subtotal segun la cantidad elegida.
 - `js/cupon.js`: valida el código de descuento `UCP10` en la pantalla de compra.
 
 ## Ejecución
 
-La tarjeta 3 requiere un servidor HTTP para cargar el catálogo con `fetch()`. Abrir el HTML con doble clic (`file://`) no permite probar correctamente esa petición.
+Las tarjetas 3 y 4 requieren un servidor HTTP para cargar los JSON con `fetch()`. Abrir el HTML con doble clic (`file://`) no permite probar correctamente esa petición.
 
 Con Python instalado, ejecutar `iniciar.bat` en Windows o abrir una terminal en la carpeta del proyecto y ejecutar:
 
@@ -71,6 +73,41 @@ npm test
 
 Las pruebas levantan su propio servidor local, comprueban la interacción y generan el registro y las capturas en `docs/`. Solo son necesarias dependencias de Node para las pruebas; el sitio usa HTML, CSS y JavaScript sin bibliotecas de producción.
 
+## Tarjeta 4: registro y acceso de socios
+
+Se implementa la **opción 4: Módulo de registro y autenticación de usuarios**. La fundamentación utiliza **VSDM**: el sitio define una vista para el visitante y otra para el socio autenticado.
+
+- Envío de los formularios capturado con `addEventListener('submit', ...)` y `preventDefault()` en `js/app.js`.
+- Validación de campos vacíos con `.trim()`, formato de e-mail, longitud mínima de 8 caracteres y coincidencia de claves (`type="password"`).
+- Verificación simulada con `fetch()` y `async/await` sobre `data/usuarios.json`: la clave ingresada se resume con SHA-256 y se compara con el resumen guardado.
+- Mensaje genérico ante credenciales incorrectas, estados de verificación y errores HTTP o de red.
+- Vista del socio con plan, estado de la membresía (activa, por vencer, vencida o sin membresía), vencimiento y días restantes.
+- El enlace del encabezado cambia de **Ingresar** a **Mi cuenta** y `comprar.html` precarga nombre y e-mail del socio.
+- La sesión se guarda en `sessionStorage` sin la clave ni su resumen, y se borra al cerrar sesión.
+
+Cuentas de prueba (clave `gimnasio2026`):
+
+| E-mail | Membresía |
+| --- | --- |
+| `lucia.benitez@gymcontrol.test` | Plan Semestral, activa hasta el 31/03/2027 |
+| `martin.rios@gymcontrol.test` | Plan Mensual, vencida el 31/08/2026 |
+
+El registro de cuentas nuevas es una simulación: comprueba por HTTP que el e-mail no exista e inicia la sesión, pero no agrega datos al JSON. Un sistema real verificaría la clave en el servidor, bajo HTTPS y con un algoritmo de resumen lento como bcrypt o Argon2.
+
+### Demostración
+
+1. Abrir **Ingresar** en el menú y pulsar **Ingresar** con los campos vacíos: aparece el aviso y el campo queda marcado.
+2. En **Crear cuenta**, escribir claves distintas: aparece `Las claves no coinciden.`
+3. Ingresar con `lucia.benitez@gymcontrol.test` y una clave incorrecta: aparece `E-mail o clave incorrectos.`
+4. Ingresar con la clave de prueba: se muestra la vista del socio y el menú pasa a **Mi cuenta**.
+5. Pulsar **Renovar plan**: `comprar.html` abre con el Plan Semestral marcado y los datos precargados.
+6. Volver a **Mi cuenta** y pulsar **Cerrar sesión**: regresa la vista de visitante.
+7. Ingresar con `martin.rios@gymcontrol.test`: la membresía figura vencida.
+
+### Pruebas de la tarjeta 4
+
+`npm test` ejecuta también `tests/acceso.cjs`, con 35 comprobaciones en Google Chrome y fecha fija para evaluar los vencimientos. El registro se guarda en `docs/pruebas-tarjeta4.json` y las capturas en `docs/capturas-tarjeta4/`.
+
 ## Documentación
 
 El análisis y diseño de la aplicación se encuentra en [`docs/Gym_Control_AE1_Analisis_y_Diseno.pdf`](docs/Gym_Control_AE1_Analisis_y_Diseno.pdf).
@@ -84,6 +121,9 @@ La Actividad Evaluativa 2 se entrega con la plantilla institucional de la UCP:
 - [Mapa navegacional editable](docs/mapa-navegacional-tarjeta3.mmd).
 - [Capturas de tarjeta 3](docs/capturas-tarjeta3/).
 - [Registro de pruebas](docs/pruebas-tarjeta3.json).
+- [Diagrama de vistas VSDM de tarjeta 4](docs/vistas-vsdm-tarjeta4.svg).
+- [Capturas de tarjeta 4](docs/capturas-tarjeta4/).
+- [Registro de pruebas de tarjeta 4](docs/pruebas-tarjeta4.json).
 
 ## Integrantes
 
